@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/plant1"
+    tools:context=".AddPlantFragment"
+    android:id="@+id/frag_addPlant">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/add_layout"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:orientation="horizontal">
+
+
+        <ImageButton
+            android:id="@+id/image_add"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@drawable/ic_plus" />
+
+        <ImageView
+            android:id="@+id/image_find"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/plant" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/add_layout">
+
+        <AutoCompleteTextView
+            android:id="@+id/plant_addname"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:completionThreshold="2"
+            android:completionHint="식물 이름을 입력하세요"
+            android:hint="식물이름"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/plant_adddate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plant_addname"
+            android:layout_marginTop="10dp"
+            android:hint="식물 키우기 시작한 날짜"
+            android:textSize="25sp" />
+
+        <TextView
+            android:id="@+id/plant_recommend"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plant_adddate"
+            android:layout_marginTop="10dp"
+            android:text="권장주기"
+            android:textSize="25sp" />
+
+        <EditText
+            android:id="@+id/plant_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plant_recommend"
+            android:layout_marginTop="10dp"
+            android:hint="물을 주는 주기 선택"
+            android:inputType="number"
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/insert_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="144dp"
+            android:layout_marginBottom="94dp"
+            android:text="추가" />
+
+    </RelativeLayout>
+    </LinearLayout>
+
+
+</FrameLayout>

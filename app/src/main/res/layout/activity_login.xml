@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/plant1"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="100dp"
+        android:layout_marginEnd="80dp"
+        android:layout_marginBottom="200dp"
+        android:fontFamily="@font/ff"
+        android:text="planiary"
+        android:textAlignment="center"
+        android:textColor="#396834"
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/id_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:hint="아이디"
+        android:padding="20dp" />
+
+    <EditText
+        android:id="@+id/pw_login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/id_login"
+        android:layout_centerInParent="true"
+        android:hint="비밀번호"
+        android:padding="20dp" />
+
+    <Button
+        android:id="@+id/signin_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pw_login"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="0dp"
+        android:backgroundTint="#396834"
+        android:padding="15dp"
+        android:text="로그인"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/signup_btn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signin_btn"
+        android:layout_centerInParent="true"
+        android:backgroundTint="#396834"
+        android:padding="15dp"
+        android:text="회원가입"
+        android:textStyle="bold" />
+
+</RelativeLayout>
