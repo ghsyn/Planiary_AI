@@ -95,13 +95,16 @@ public class RegisterActivity extends AppCompatActivity {
                 final String userName = name_register.getText().toString();
                 final String userAddress = address_register.getText().toString();
 
+                /*
                 if (!validate) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("중복된 아이디가 있는지 확인하세요.").setNegativeButton("확인", null).create();
                     dialog.show();
                     return;
                 }
-                if (userID.equals("")||userPassword.equals("")||userName.equals("")||userAddress.equals("")) {
+                 */
+
+                if (userID.equals("")||userPassword.equals("") || pwck.equals("") ||userName.equals("")||userAddress.equals("")) {
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                     dialog = builder.setMessage("모두 입력해주세요.").setNegativeButton("확인", null).create();
                     dialog.show();

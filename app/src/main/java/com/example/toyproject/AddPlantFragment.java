@@ -16,10 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
-
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 /**
@@ -99,11 +96,11 @@ public class AddPlantFragment extends Fragment {
         plants = new ArrayList<>();
         for(int i = 0; i<name.length;i++) {
             plant = new Plant();
-            plant.setName(name[i]);
+            plant.setPlantName(name[i]);
             plants.add(plant);
         }
         for(Plant pla :plants){
-            plantName.add(pla.getName());}
+            plantName.add(pla.getPlantName());}
 
         addName.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line,plantName));
 
