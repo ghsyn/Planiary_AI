@@ -1,150 +1,120 @@
 package com.example.toyproject;
 
+import static com.example.toyproject.Define.NOWDATE;
+
 import java.time.LocalDate;
 
 
 
-public class Plant implements Comparable<Plant> {
-	private static int autoNum = 0;
-	private String plantSpecies;
-	
-	private int plantId;
-	private String plantName;
-	private LocalDate addDate;
+public class Plant {
+	private final int plantID;
+	private final int waterFrequency;
+	private final String plantSpecies, plantName;
+	private final LocalDate addDate;
 	private LocalDate waterDate;
-	private int waterFrequency;
-	private boolean waterCheck;
-	private LocalDate nowDate = LocalDate.now();
-	
-	CalcWaterDate calcWaterDate = (n,w) -> (n.plusDays(w));
+
+	static CalcWaterDate calcWaterDate = (n, w) -> (n.plusDays(w));
 	CalcWaterCheck todayWater = (w,n)->{if(n.isAfter(w)) {
 		return true;} else return false;
 	};
 
-	Plant(){
-		autoNum++;
-		plantId = 10000 + autoNum;
-//		waterDate = calcWaterDate.calcWaterDate(nowDate, waterFrequency);
-		waterCheck = false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Plant)) return false;
+
+		Plant pl = (Plant) o;
+
+		return pl.plantID == plantID && pl.plantName == plantName && pl.plantSpecies == plantSpecies && pl.addDate == addDate;
 	}
-	//새로 만든 식물
-	Plant(String plantSpecies, String plantName, LocalDate addDate, int waterFrequency){
-		autoNum++;
-		plantId = 10000 + autoNum;
-		waterDate = calcWaterDate.calcWaterDate(nowDate, waterFrequency);
-		
-		this.plantSpecies=plantSpecies;
-		this.plantName =plantName;
-		this.addDate=addDate;
-		this.waterFrequency = waterFrequency;
-		waterCheck = todayWater.todayWater(waterDate,nowDate);
-		
+
+	@Override
+	public int hashCode() {
+		return plantID;
 	}
-	//만들어진 식물.
-	Plant(String plantSpecies, String plantName, LocalDate addDate, LocalDate waterDate, int waterFrequency){
-		autoNum++;
-		plantId = 10000 + autoNum;
-		
-		this.waterDate = waterDate;
-		this.plantSpecies=plantSpecies;
-		this.plantName =plantName;
-		this.addDate=addDate;
-		this.waterFrequency = waterFrequency;
-		waterCheck = todayWater.todayWater(this.waterDate,nowDate);
-		
-	}
-	//물을 줘야하는지 확인
-	public boolean countWater() {
-		return waterCheck;
-		
-	}
-	//물을 줌.
-	public boolean getWater() {
-		if(waterCheck) {
-		waterCheck = false;
-		waterDate = calcWaterDate.calcWaterDate(nowDate, waterFrequency);
-		return true;
+
+	public static class Builder{
+		private final String plantSpecies, plantName;
+		private final LocalDate addDate;
+		private final int waterFrequency;
+		private int plantID=0;
+		private LocalDate waterDate = null;
+
+
+		public Builder(String plantSpecies, String plantName, LocalDate addDate, int waterFrequency){
+			this.plantSpecies = plantSpecies;
+			this.plantName = plantName;
+			this.addDate = addDate;
+			this.waterFrequency = waterFrequency;
+			waterDate = calcWaterDate.calcWaterDate(NOWDATE, waterFrequency);
+
 		}
-		else return false;
+		public Builder plantID(int val){
+			plantID = val;
+			return this;
+		}
+		public Builder waterDate(LocalDate val){
+			waterDate = val;
+			return this;
+		}
+		public Plant build(){
+			return new Plant(this);
+		}
+
 	}
-	
-	public void setPlantName(String plantName) {
-		this.plantName = plantName;
+	private Plant(Builder builder){
+		plantID = makePlantID(builder.plantID);
+		addDate = builder.addDate;
+		waterDate = builder.waterDate;
+		waterFrequency = builder.waterFrequency;
+		plantName = builder.plantName;
+		plantSpecies = builder.plantName;
 	}
 
-	public int getPlantId() {
-		return plantId;
+	public int makePlantID(int plantID){
+		if(plantID ==0){
+			int result = plantSpecies != null ? plantSpecies.hashCode() : 0;
+			result = 31 * result + (plantName != null ? plantName.hashCode() : 0);
+			result = 31 * result + (addDate != null ? addDate.hashCode() : 0);
+			return result;
+		}
+		else return plantID;
 	}
 
+	//오늘 물을 주어야할 식물 수
+	public boolean getCount(){
+		return todayWater.todayWater(waterDate,NOWDATE);
+	}
+
+	//물을 줌
+	public boolean getWater() {
+
+		waterDate = calcWaterDate.calcWaterDate(NOWDATE, waterFrequency);
+		return true;
+
+
+	}
+	public int getPlantID(){return plantID;}
+
+	public int getWaterFrequency() {
+		return waterFrequency;
+	}
+
+	public String getPlantSpecies() {
+		return plantSpecies;
+	}
+
+	public String getPlantName() {
+		return plantName;
+	}
 
 	public LocalDate getAddDate() {
 		return addDate;
-	}
-
-	public void setAddDate(LocalDate addDate) {
-		this.addDate = addDate;
 	}
 
 	public LocalDate getWaterDate() {
 		return waterDate;
 	}
 
-	public void setWaterDate(LocalDate waterDate) {
-		this.waterDate = waterDate;
-	}
-
-	public int getWaterFrequency() {
-		return waterFrequency;
-	}
-
-	public void setWaterFrequency(int waterFrequency) {
-		this.waterFrequency = waterFrequency;
-	}
-
-	public boolean isWaterCheck() {
-		return waterCheck;
-	}
-
-	public void setWaterCheck(boolean waterCheck) {
-		this.waterCheck = waterCheck;
-	}
-
-	public String getPlantName() {
-		return plantName;
-	}
-	public String getPlantSpecies() {
-		return plantSpecies;
-	}
-
-	public void setPlantSpecies(String plantSpecies) {
-		this.plantSpecies = plantSpecies;
-	}
-	
-	@Override
-	public int hashCode() {
-		return plantId;
-	}
-	@Override
-	public boolean equals(Object obj) {
-		if(obj instanceof Plant) {
-			Plant plant = (Plant) obj;
-			if(this.plantId == plant.plantId) {
-				return true;
-			}
-			else return false;
-		}
-		else return false;
-	}
-	@Override
-	public String toString() {
-		return plantName + " Id: " +plantId; 
-	}
-	@Override
-	public int compareTo(Plant o) {
-		// TODO Auto-generated method stub
-		return this.plantId - o.plantId;
-	}
-	
-	
-
 }
+

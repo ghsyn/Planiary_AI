@@ -18,7 +18,8 @@ import java.time.LocalDate;
  */
 public class homeFragment extends Fragment {
     private TextView waterCount;
-    wateringFrequency wateringFrequency;
+    PlantHashMap plantHashMap;
+
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -66,16 +67,13 @@ public class homeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = null;
         view = inflater.inflate(R.layout.fragment_home, container, false);
-        wateringFrequency = new wateringFrequency();
         LocalDate date[] = new LocalDate[6];
         for(int i =0; i<6; i++) {
             date[i] = LocalDate.of(2023, 01, 13).plusDays(i);
-            wateringFrequency.putDate(date[i]);
         }
-
         waterCount = (TextView)view.findViewById(R.id.TV_count);
-
-        waterCount.setText(String.valueOf(wateringFrequency.calcCount()));
+        plantHashMap = new PlantHashMap();
+        waterCount.setText(String.valueOf(plantHashMap.waterCount()));
         return view;
     }
 

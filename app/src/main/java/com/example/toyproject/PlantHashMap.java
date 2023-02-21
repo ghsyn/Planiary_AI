@@ -6,13 +6,13 @@ import java.util.Iterator;
 
 public class PlantHashMap {
 	private HashMap<Integer ,Plant> hashMap;
-	int count;
+
 	
 	public PlantHashMap() {
 		hashMap = new HashMap<>();
 	}
 	public void addPlant(Plant plant) {
-		hashMap.put(plant.getPlantId(), plant);
+		hashMap.put(plant.getPlantID(), plant);
 	}
 	public boolean removePlant(int plantId) {
 		if(hashMap.containsKey(plantId)) {
@@ -21,14 +21,14 @@ public class PlantHashMap {
 		}
 		return false;
 	}
-	
+	//물 줘야하는 식물 수
 	public int waterCount() {
-		count = 0;
 		Iterator<Integer> ir = hashMap.keySet().iterator();
+		int count = 0;
 		while(ir.hasNext()) {
 			int key = ir.next();
 			Plant plant = hashMap.get(key);
-			if(plant.countWater()) {
+			if(plant.getCount()) {
 				count ++;
 			}
 		}
@@ -40,6 +40,8 @@ public class PlantHashMap {
 		}
 		return null;
 	}
+
+	//물을 줌
 	public boolean getWater(int plantId) {
 		if(hashMap.containsKey(plantId)) {
 			Plant plant = hashMap.get(plantId);

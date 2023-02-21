@@ -1,9 +1,11 @@
 package com.example.toyproject;
 
+import static com.example.toyproject.Define.NOWDATE;
+
 import android.app.DatePickerDialog;
+import androidx.fragment.app.Fragment;
 import android.os.Bundle;
 
-import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +36,8 @@ public class AddPlantFragment extends Fragment {
     LocalDate setDate = LocalDate.now();
     ArrayList<Plant> plants;
     ArrayList<String> plantName;
+    PlantHashMap plantHashMap;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -89,18 +93,27 @@ public class AddPlantFragment extends Fragment {
         recommand = (TextView)view.findViewById(R.id.plant_recommend);
         plantImage = (ImageButton)view.findViewById(R.id.image_add);
         add_btn =(Button)view.findViewById(R.id.insert_btn);
-        LocalDate nowDate = LocalDate.now();
+        plantHashMap = new PlantHashMap();
+
         String name[] = {"강아지풀", "민들레", "코스모스", "할미꽃","개나리", "다육이"};
 //        addDate.setText(nowDate.toString());
         plantName = new ArrayList<>();
         plants = new ArrayList<>();
         for(int i = 0; i<name.length;i++) {
-            plant = new Plant();
-            plant.setPlantName(name[i]);
+            plant = new Plant.Builder(name[i],name[i],NOWDATE.plusDays(i), i).build();
             plants.add(plant);
         }
         for(Plant pla :plants){
             plantName.add(pla.getPlantName());}
+
+        add_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                plantHashMap.addPlant(new Plant.Builder(String.valueOf(addName.getText()),String.valueOf(addName.getText()),LocalDate.parse(addDate.getText()),Integer.valueOf(String.valueOf(plantSelect.getText()))).build());
+
+            }
+        });
+
 
         addName.setAdapter(new ArrayAdapter<String>(getContext(), android.R.layout.simple_dropdown_item_1line,plantName));
 
