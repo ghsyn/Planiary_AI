@@ -1,5 +1,6 @@
 package com.example.toyproject;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -80,9 +81,11 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 }
                 case R.id.item_aiCamera: {
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.home_ly, new AiCameraFragment())
-                            .commit();
+//                    getSupportFragmentManager().beginTransaction()
+//                            .replace(R.id.home_ly, new AiCameraFragment())
+//                            .commit();
+                    Intent intent = new Intent(MainActivity.this, AiActivity.class);
+                    startActivity(intent);
                     return true;
                 }
             }
