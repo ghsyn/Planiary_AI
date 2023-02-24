@@ -4,9 +4,11 @@ import static com.example.toyproject.Define.NOWDATE;
 
 import android.app.DatePickerDialog;
 import androidx.fragment.app.Fragment;
+
 import android.os.Bundle;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -85,6 +88,7 @@ public class AddPlantFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.i("SeongWon","OnCreateView AddPlantFragment");
         View view = null;
         view = inflater.inflate(R.layout.fragment_add_plant, container, false);
         addName = (AutoCompleteTextView) view.findViewById(R.id.plant_addname);
@@ -93,7 +97,7 @@ public class AddPlantFragment extends Fragment {
         recommand = (TextView)view.findViewById(R.id.plant_recommend);
         plantImage = (ImageButton)view.findViewById(R.id.image_add);
         add_btn =(Button)view.findViewById(R.id.insert_btn);
-        plantHashMap = new PlantHashMap();
+        plantHashMap =PlantHashMap.getInstance();
 
         String name[] = {"강아지풀", "민들레", "코스모스", "할미꽃","개나리", "다육이"};
 //        addDate.setText(nowDate.toString());
@@ -106,11 +110,13 @@ public class AddPlantFragment extends Fragment {
         for(Plant pla :plants){
             plantName.add(pla.getPlantName());}
 
+        View finalView = view;
         add_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 plantHashMap.addPlant(new Plant.Builder(String.valueOf(addName.getText()),String.valueOf(addName.getText()),LocalDate.parse(addDate.getText()),Integer.valueOf(String.valueOf(plantSelect.getText()))).build());
-
+                Toast.makeText(finalView.getContext(), "길게 출력 Hello World!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(view.getContext())
             }
         });
 
@@ -120,7 +126,7 @@ public class AddPlantFragment extends Fragment {
         addDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(getContext(), datePicker, setDate.getYear(), setDate.getMonthValue(), setDate.getDayOfMonth()).show();
+                new DatePickerDialog(getContext(), datePicker, setDate.getYear(), setDate.getMonthValue()-1, setDate.getDayOfMonth()).show();
             }
         });
 
@@ -131,7 +137,7 @@ public class AddPlantFragment extends Fragment {
     DatePickerDialog.OnDateSetListener datePicker = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            setDate=LocalDate.of(year,month,dayOfMonth);
+            setDate=LocalDate.of(year,month+1,dayOfMonth);
             addDate.setText(setDate.toString());
         }
     };

@@ -3,13 +3,29 @@ package com.example.toyproject;
 import java.util.HashMap;
 import java.util.Iterator;
 
+//private static final JackSingleton INSTANCE = new JackSingleton();
+//
+//public JackSingleton() {
+//		}
+//
+//public static JackSingleton getInstance() {
+//		return INSTANCE;
+//		}
+//
+//private Object readResolve() {
+//		return INSTANCE;
+//		}
 
 public class PlantHashMap {
-	private HashMap<Integer ,Plant> hashMap;
+	private static final PlantHashMap INSTANCE = new PlantHashMap();
+	private static HashMap<Integer ,Plant> hashMap = new HashMap<>();
 
 	
-	public PlantHashMap() {
-		hashMap = new HashMap<>();
+	private PlantHashMap() {
+
+	}
+	public static PlantHashMap getInstance(){
+		return INSTANCE;
 	}
 	public void addPlant(Plant plant) {
 		hashMap.put(plant.getPlantID(), plant);
@@ -21,6 +37,11 @@ public class PlantHashMap {
 		}
 		return false;
 	}
+
+	public static HashMap<Integer, Plant> getHashMap() {
+		return hashMap;
+	}
+
 	//물 줘야하는 식물 수
 	public int waterCount() {
 		Iterator<Integer> ir = hashMap.keySet().iterator();

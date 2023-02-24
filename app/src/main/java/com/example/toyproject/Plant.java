@@ -13,6 +13,7 @@ public class Plant {
 	private final LocalDate addDate;
 	private LocalDate waterDate;
 
+
 	static CalcWaterDate calcWaterDate = (n, w) -> (n.plusDays(w));
 	CalcWaterCheck todayWater = (w,n)->{if(n.isAfter(w)) {
 		return true;} else return false;
@@ -41,12 +42,13 @@ public class Plant {
 		private LocalDate waterDate = null;
 
 
+
 		public Builder(String plantSpecies, String plantName, LocalDate addDate, int waterFrequency){
 			this.plantSpecies = plantSpecies;
 			this.plantName = plantName;
 			this.addDate = addDate;
 			this.waterFrequency = waterFrequency;
-			waterDate = calcWaterDate.calcWaterDate(NOWDATE, waterFrequency);
+			waterDate = calcWaterDate.calcWaterDate(addDate, waterFrequency);
 
 		}
 		public Builder plantID(int val){
@@ -63,12 +65,12 @@ public class Plant {
 
 	}
 	private Plant(Builder builder){
-		plantID = makePlantID(builder.plantID);
 		addDate = builder.addDate;
 		waterDate = builder.waterDate;
 		waterFrequency = builder.waterFrequency;
 		plantName = builder.plantName;
 		plantSpecies = builder.plantName;
+		plantID = makePlantID(builder.plantID);
 	}
 
 	public int makePlantID(int plantID){
